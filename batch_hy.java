@@ -173,14 +173,13 @@ public class batch_hy {
                 +" 'scdwewvcd', 'w', 'cnsdubhvwued', 'ncusncd', 'fcd', '1', 578412,now(),'sc','sw',154.24,582.24,694.21,'dwefrvss',54852,'s',now(),now(),now())";
                 String sql_insert2 = "insert into detail_serial values (?,'scxed','sdees','ssdwq','sdcqw',?,'sqdfqe','sace','swda','651',now(),now(),now(),now(),'54785', "
                 +"'55841','548',now(),547.25,547.2,5471.2,254.4,548451,'544842','54753',25417,25142,5574,now(),'2','6','54','2','54762','54775','5584','244212',"
-                +"'12cas','25441','15456512','2541','15486','154486','10045484','200caijsxscsd','1','icaohjcidvcd' ";
+                +"'12cas','25441','15456512','2541','15486','154486','10045484','200caijsxscsd','1','icaohjcidvcd') ";
 
                 PreparedStatement pstmt_select = conn.prepareStatement(sql_select);
                 PreparedStatement pstmt_update = conn.prepareStatement(sql_update);
                 PreparedStatement pstmt_insert1 = conn.prepareStatement(sql_insert1);
                 PreparedStatement pstmt_insert2 = conn.prepareStatement(sql_insert2);
                 BufferedReader bufferedReader = readTxtFile("./data19.csv");
-                Statement statement = conn.createStatement();
                 //statement.execute("set tidb_batch_insert = ON; ");
                 //statement.execute("set tidb_dml_batch_size = 10; ");
                
@@ -206,7 +205,6 @@ public class batch_hy {
                         pstmt_insert1.setString(1, strs[0]);
                         pstmt_insert2.setLong(1, Long.parseLong(bigUnstring));
                         pstmt_insert2.setString(2, strs[0]);
-                        java.util.Date date=new java.util.Date();
                         pstmt_select.execute();
                         pstmt_update.executeUpdate();
                         pstmt_insert1.executeUpdate();
