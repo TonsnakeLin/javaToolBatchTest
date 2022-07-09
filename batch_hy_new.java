@@ -37,20 +37,25 @@ public class batch_hy_new {
     public static void main(String[] args) {
         Connection conn = null;
         Statement stmt = null;
+        //读取配置文件
         if (read_args(args)) {
             return ;
         }
+        //切分多个IP和端口
         String[] IpPort = IP_Port.split(";");
         //CountDownLatch latch = new CountDownLatch(POOL_SIZE);
+        //获取最大跑批次数和最大uk id
         InitDate initDate = getMax(IpPort[0]);
         try{
             
             List<Future<ThreadResultInfo>> fList = new ArrayList<>();
             ExecutorService es = Executors.newFixedThreadPool(pool_size);
+            //启动并发
             for(int i = 0; i < pool_size; ++i) {
                 fList.add(es.submit(new con_work(i, pool_size, bench_size, IpPort[i%IpPort.length], initDate)));
             }
             double TPS  = 0;
+            //分析多线程的结果
             for(Future<ThreadResultInfo> f : fList) {
                
                 try {
@@ -200,6 +205,7 @@ public class batch_hy_new {
 
 
         }
+        //获取内部交易账号
         public String get_info_id() {
             String info_id = "33011"  + areaCode ;
             int num = task_user_id%7000 ;
@@ -211,12 +217,13 @@ public class batch_hy_new {
 
         }
         
+        //初始化状态
         void init_status(){
             task_user_id = 1;
             user_end = false;
             areaCode = "10" + Integer.toString(task_id);
         }
-        // 数据库的用户名与密码，需要根据自己的设置
+
         public ThreadResultInfo  call() throws ClassNotFoundException{
             Class.forName(JDBC_DRIVER);
             Connection conn = null;
@@ -269,7 +276,7 @@ public class batch_hy_new {
                 //循环10分钟
                 while(end > System.currentTimeMillis()) {
                     long start_time = System.currentTimeMillis();
-                    //控制单个事务中的账号数
+                    //生成存款账号ID
                     for (int i = 0; i < bench_num; i++) {
                         user_id = "33010"  + areaCode ;
                         for (int j = 0; j < 10- Integer.toString(task_user_id).length(); j++) {
@@ -306,13 +313,16 @@ public class batch_hy_new {
                 //记录单个事务执行时间
                 cos_time = cos_time + System.currentTimeMillis() - start_time; 
                 count++;
+                //当前批跑完，切换到下个批
                 if (user_end) {
                     task_id = task_id + tot;
-                    if (task_id > 400)
+                
+                    if (task_id > 400) {
+                       //批跑完了
                        break;
-                    areaCode = "10" + Integer.toString(task_id);
-                    task_user_id = 1;
-                    user_end = false;
+                    }
+                    //切换到下个批   
+                    init_status();
                 }
                 
             }
