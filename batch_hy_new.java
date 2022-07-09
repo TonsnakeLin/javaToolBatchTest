@@ -238,7 +238,14 @@ public class batch_hy_new {
                 + "`open_date` = `str_to_date` (open_date,'%Y-%m-%d %H:%i:%s'),`close_date` = `str_to_date` (close_date,'%Y-%m-%d %H:%i:%s'),`detail_cnt` ,`debit_amt` ,`credit_amt` ,`debit_cnt` ,`credit_cnt` ,`balance` ,`pre_clearing_times` ,"
                 + "`pre_times_balance` ,`pre_times_dcnt` ,`pre_times_damt` ,`pre_times_ccnt` ,`pre_times_camt` ,`pre_cycle_no` ,`pre_balance` ,`pre_debit_cnt` ,`pre_credit_cnt` ,"
                 + "`pre_debit_amt` ,`pre_credit_amt` ,`dac` from  account_dynamic WHERE `account_no` = ? For update;";
-                String sql_update = "UPDATE `account_dynamic` SET credit_amt = credit_amt+1  WHERE `account_no` = ?;";
+                String sql_update = "UPDATE `account_dynamic` SET area_code = area_code, `product_code` = product_code, `gl_class` = gl_class, `virtual_flag` = virtual_flag ,"
+                + "`real_flag` = real_flag, `collect_flag` = collect_flag, `balance_type` = balance_type, `balance_ctrl` = balance_ctrl,`sync_flag` = sync_flag,`cur_type` = cur_type,"
+                + "`spot_type` = spot_type,`close_flag` = close_flag,`max_acc_cycle_no` = max_acc_cycle_no+1,`max_clearing_times` = max_clearing_times,`dayend_cycle_no` = dayend_cycle_no+1,"
+                + "`acc_date` = now(),`last_acc_date` = now(),`open_date` = open_date,`close_date` = close_date,`detail_cnt` = detail_cnt+1,`debit_amt` = debit_amt+1,"
+                + "`credit_amt` = credit_amt+1,`debit_cnt` = debit_cnt+1,`credit_cnt` = credit_cnt+1,`balance` = balance+1,`pre_clearing_times` = pre_clearing_times,`pre_times_balance` = pre_times_balance,"
+                + "`pre_times_dcnt` = pre_times_dcnt,`pre_times_damt` = pre_times_damt,`pre_times_ccnt` = pre_times_ccnt,`pre_times_camt` = pre_times_camt,`pre_cycle_no` = pre_cycle_no,"
+                + "`pre_balance` = pre_balance,`pre_debit_cnt` = pre_debit_cnt,`pre_credit_cnt` = pre_credit_cnt,`pre_debit_amt` = pre_debit_amt,`pre_credit_amt` = pre_credit_amt,"
+                + "`dac` = dac WHERE `account_no` = ?;";
                 String sql_insert1 = "insert into bs_intr_acsetl_detail values(?,now(),?,'4856','s','5842',?,'s',?,'cyctftdrdsr',"
                 +" ?, 'w', 'cnsdubhvwued', 'ncusncd', 'fcd', '1', 578412,now(),'sc','sw',154.24,582.24,694.21,'dwefrvss',54852,'s',now(),now(),now())";
                 String sql_insert2 = "insert into account_detail values (?,'scxed','sdees','ssdwq','sdcqw',?,'sqdfqe','sace','swda','651',now(),now(),now(),now(),'54785', "
