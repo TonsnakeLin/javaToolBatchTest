@@ -242,7 +242,7 @@ public class batch_hy_new {
                 String sql_insert1 = "insert into bs_intr_acsetl_detail values(?,now(),?,'4856','s','5842',?,'s',?,'cyctftdrdsr',"
                 +" ?, 'w', 'cnsdubhvwued', 'ncusncd', 'fcd', '1', 578412,now(),'sc','sw',154.24,582.24,694.21,'dwefrvss',54852,'s',now(),now(),now())";
                 String sql_insert2 = "insert into account_detail values (?,'scxed','sdees','ssdwq','sdcqw',?,'sqdfqe','sace','swda','651',now(),now(),now(),now(),'54785', "
-                +"'55841','548',now(),547.25,547.2,5471.2,254.4,548451,'544842','54753',25417,25142,5574,now(),'2','6','54','2','54762','54775','5584','244212',"
+                +"'55841','548',?,547.25,547.2,5471.2,254.4,548451,'544842','54753',25417,25142,5574,now(),'2','6','54','2','54762','54775','5584','244212',"
                 +"'12cas','25441','15456512','1548','15448','10045484','200caijsxscsd','sfcwdvwed','scevcwedsx','sacecwcvd','1','icaohjcidvcd') ";              
                 //创建prepare对象
                 PreparedStatement pstmt_select = conn.prepareStatement(sql_select);
@@ -280,6 +280,7 @@ public class batch_hy_new {
                         pstmt_insert1.setString(5, areaCode);
                         pstmt_insert2.setLong(1, maxSer);
                         pstmt_insert2.setString(2, user_id);
+                        pstmt_insert2.setString(3, Long.toString(maxCycle));
                         //执行查询
                         ResultSet res = pstmt_select.executeQuery();
                         if (!res.next()) {
